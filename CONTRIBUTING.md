@@ -1,7 +1,9 @@
-# Contributing to React Simple Canvas Component
+# Contributing
 
-We welcome your help to make this component better. This document will help to streamline the contributing process and save everyone's precious time.
+React Simple Canvas is ambitious; I'd like to see it become powerful enough to tackle any task that could be accomplished with SVG or HTML5 Canvas.
+
+Contributors are welcome, and I'll do my best to ensure that developing React Simple Canvas is straightforward and rewarding.
 
 ## Development Setup
 
-This component has been setup with [React CDK](https://github.com/kadirahq/react-cdk). Refer [React CDK documentation](https://github.com/kadirahq/react-cdk)) to get started with the development.
+// TODO
