@@ -1,11 +1,31 @@
 // eslint-disable-next-line no-unused-vars
 import React, { Component, PropTypes } from 'react';
 
+import { getDashArray } from '../../helpers';
+
+
 // We can't use SFCs because SFCs can't return null.
 // eslint-disable-next-line react/prefer-stateless-function
 class Line extends Component {
   render() {
-    const { ctx, x1, y1, x2, y2, stroke, strokeWidth, strokeLinecap } = this.props;
+    const {
+      ctx,
+      x1,
+      y1,
+      x2,
+      y2,
+      stroke,
+      strokeDasharray,
+      strokeDashoffset,
+      strokeLinecap,
+      strokeOpacity,
+      strokeWidth,
+    } = this.props;
+
+    if (strokeDasharray) {
+      const dashArray = getDashArray(strokeDasharray, this);
+      ctx.setLineDash(dashArray);
+    }
 
     ctx.beginPath();
     ctx.moveTo(x1, y1);
@@ -27,8 +47,9 @@ class Line extends Component {
 
 Line.defaultProps = {
   stroke: '#000000',
-  strokeWidth: 1,
   strokeLinecap: 'butt',
+  strokeOpacity: 1,
+  strokeWidth: 1,
 };
 
 Line.propTypes = {
@@ -38,8 +59,18 @@ Line.propTypes = {
   x2: PropTypes.number.isRequired,
   y2: PropTypes.number.isRequired,
   stroke: PropTypes.string.isRequired,
-  strokeWidth: PropTypes.number.isRequired,
+  strokeDasharray: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.arrayOf(PropTypes.number),
+  ]),
+  strokeDashoffset: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   strokeLinecap: PropTypes.oneOf(['butt', 'round', 'square']),
+  strokeOpacity: PropTypes.number.isRequired,
+  strokeWidth: PropTypes.number.isRequired,
 };
 
 export default Line;
