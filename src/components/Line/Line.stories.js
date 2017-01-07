@@ -7,12 +7,12 @@ import Line from '../Line';
 
 
 storiesOf('Line', module)
-  .add('Simple line', () => (
+  .add('with default values for most fields', () => (
     <Canvas width={250} height={250} style={{ border: '1px solid black' }}>
       <Line x1={20} y1={20} x2={60} y2={20} />
     </Canvas>
   ))
-  .add('custom stroke and width', () => (
+  .add('with custom stroke and width', () => (
     <Canvas width={250} height={250} style={{ border: '1px solid black' }}>
       <Line
         key="line-1"
@@ -34,7 +34,7 @@ storiesOf('Line', module)
       />
     </Canvas>
   ))
-  .add('custom linecaps', () => (
+  .add('with custom linecaps', () => (
     <Canvas width={250} height={250} style={{ border: '1px solid black' }}>
       <Line
         key="line-1"
@@ -68,7 +68,7 @@ storiesOf('Line', module)
       />
     </Canvas>
   ))
-  .add('dashed lines', () => (
+  .add('with custom dashes', () => (
     <Canvas width={250} height={250} style={{ border: '1px solid black' }}>
       <Line
         key="line-1"
@@ -100,7 +100,39 @@ storiesOf('Line', module)
       />
     </Canvas>
   ))
-  .add('animated dash offset', () => {
+  .add('with opacity', () => (
+    <Canvas width={250} height={250} style={{ border: '1px solid black' }}>
+      <Line
+        key="line-1"
+        x1={25}
+        y1={50}
+        x2={225}
+        y2={50}
+        strokeWidth={2}
+        strokeDasharray={5}
+      />
+      <Line
+        key="line-2"
+        x1={25}
+        y1={125}
+        x2={225}
+        y2={125}
+        strokeWidth={2}
+        strokeDasharray="20, 5, 2, 5"
+      />
+      <Line
+        key="line-3"
+        x1={25}
+        y1={200}
+        x2={225}
+        y2={200}
+        strokeWidth={2}
+        strokeDasharray={[0, 4, 10, 4]}
+        strokeLinecap="round"
+      />
+    </Canvas>
+  ))
+  .add('with offset animation', () => {
     class AnimatedLines extends Component {
       constructor(props) {
         super(props);
@@ -153,7 +185,67 @@ storiesOf('Line', module)
 
     return (<AnimatedLines />);
   })
-  .add('self-drawing line', () => {
+  .add('with array animation', () => {
+    class AnimatedLines extends Component {
+      constructor(props) {
+        super(props);
+
+        this.updateAnimation = this.updateAnimation.bind(this);
+
+        this.state = {
+          array: 0,
+        };
+      }
+
+      componentDidMount() {
+        this.updateAnimation();
+      }
+
+      updateAnimation() {
+        // eslint-disable-next-line no-undef
+        window.requestAnimationFrame(() => {
+          this.setState({ array: this.state.array + 1 }, this.updateAnimation);
+        });
+      }
+
+      render() {
+        return (
+          <Canvas width={250} height={250} style={{ border: '1px solid black' }}>
+            <Line
+              key="line-1"
+              x1={25}
+              y1={50}
+              x2={225}
+              y2={50}
+              strokeWidth={2}
+              strokeDasharray={this.state.array * 0.1}
+            />
+            <Line
+              key="line-2"
+              x1={25}
+              y1={125}
+              x2={225}
+              y2={125}
+              strokeWidth={2}
+              strokeDasharray={this.state.array * 0.2}
+            />
+            <Line
+              key="line-3"
+              x1={25}
+              y1={200}
+              x2={225}
+              y2={200}
+              strokeWidth={2}
+              strokeDasharray={this.state.array * 0.4}
+            />
+          </Canvas>
+        );
+      }
+    }
+
+    return (<AnimatedLines />);
+  })
+  .add('with self-drawing animation', () => {
     const LINE_WIDTH = 200;
 
     // This is the common effect people use to create shapes that draw themselves.
