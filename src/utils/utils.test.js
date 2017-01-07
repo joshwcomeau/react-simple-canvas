@@ -1,10 +1,8 @@
 import { expect } from 'chai';
 
-import { pick, pickAllExcept } from './index';
+import { pick, omit } from './index';
 
 const { describe, it } = global;
-
-console.log(window);
 
 describe('utils', () => {
   describe('pick', () => {
@@ -89,13 +87,13 @@ describe('utils', () => {
     });
   });
 
-  describe('pickAllExcept', () => {
+  describe('omit', () => {
     it('filters out a single value', () => {
       const object = { a: 5, b: 10, c: 15, d: 20 };
       const keys = ['a'];
 
       const expectedOutput = { b: 10, c: 15, d: 20 };
-      const actualOutput = pickAllExcept(object, keys);
+      const actualOutput = omit(object, keys);
 
       expect(actualOutput).to.deep.equal(expectedOutput);
     });
@@ -105,7 +103,7 @@ describe('utils', () => {
       const keys = ['c', 'a'];
 
       const expectedOutput = { b: 10, d: 20 };
-      const actualOutput = pickAllExcept(object, keys);
+      const actualOutput = omit(object, keys);
 
       expect(actualOutput).to.deep.equal(expectedOutput);
     });
@@ -115,7 +113,7 @@ describe('utils', () => {
       const keys = ['c', 'e'];
 
       const expectedOutput = { a: 5, b: 10, d: 20 };
-      const actualOutput = pickAllExcept(object, keys);
+      const actualOutput = omit(object, keys);
 
       expect(actualOutput).to.deep.equal(expectedOutput);
     });
@@ -125,7 +123,7 @@ describe('utils', () => {
       const keys = ['e'];
 
       const expectedOutput = { a: 5, b: 10, c: 15, d: 20 };
-      const actualOutput = pickAllExcept(object, keys);
+      const actualOutput = omit(object, keys);
 
       expect(actualOutput).to.deep.equal(expectedOutput);
     });
@@ -135,7 +133,7 @@ describe('utils', () => {
       const keys = [];
 
       const expectedOutput = { a: 5, b: 10, c: 15, d: 20 };
-      const actualOutput = pickAllExcept(object, keys);
+      const actualOutput = omit(object, keys);
 
       expect(actualOutput).to.deep.equal(expectedOutput);
     });
@@ -145,7 +143,7 @@ describe('utils', () => {
       const keys = { a: 5, c: 15 };
 
       const expectedOutput = { b: 10, d: 20 };
-      const actualOutput = pickAllExcept(object, keys);
+      const actualOutput = omit(object, keys);
 
       expect(actualOutput).to.deep.equal(expectedOutput);
     });

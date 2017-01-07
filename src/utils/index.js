@@ -16,7 +16,7 @@ export const pick = (object, keys) => {
   }, {});
 };
 
-export const pickAllExcept = (object, rejectedKeys) => {
+export const omit = (object, rejectedKeys) => {
   if (!Array.isArray(rejectedKeys)) {
     // eslint-disable-next-line no-param-reassign
     rejectedKeys = Object.keys(rejectedKeys);

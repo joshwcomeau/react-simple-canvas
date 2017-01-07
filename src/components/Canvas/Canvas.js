@@ -2,7 +2,7 @@
 import React, { Component, PureComponent, PropTypes } from 'react';
 
 import { scaleCanvas } from '../../helpers';
-import { pickAllExcept } from '../../utils';
+import { omit } from '../../utils';
 
 
 // If the user is running React >= 15.3.0, we can use PureComponent.
@@ -35,7 +35,7 @@ class Canvas extends ExtendedComponent {
     // creating these DOM-extension components, it's the nicest API by far,
     // and it's important for the developer experience. React will warn the
     // user if they pass illegitimate props to the <canvas> element :)
-    return pickAllExcept(this.props, Canvas.propTypes);
+    return omit(this.props, Canvas.propTypes);
   }
 
   cloneChildrenWithCtx(children) {
