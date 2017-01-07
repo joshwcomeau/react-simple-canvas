@@ -9,7 +9,7 @@ const { describe, it } = global;
 describe('Canvas', () => {
   it('renders without incident', () => {
     const wrapper = shallow(<Canvas />);
-    console.log(wrapper);
+    console.log(window);
     expect(wrapper).to.be.ok();
   });
 });
