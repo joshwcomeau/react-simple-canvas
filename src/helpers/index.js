@@ -36,7 +36,9 @@ export function scaleCanvas(canvas, ctx) {
 }
 
 export function resetCtx(ctx) {
+  /* eslint-disable no-param-reassign */
   ctx.globalAlpha = 1;
+  /* eslint-enable */
 }
 
 export function getDashArray(input, parentComponent) {

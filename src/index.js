@@ -1,3 +1,4 @@
 import './polyfills';
 
-export { Canvas } from './components/Canvas';
+export { Svg } from './components/Svg';
+export { Line } from './components/Line';
