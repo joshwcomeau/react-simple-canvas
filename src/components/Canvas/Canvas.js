@@ -21,6 +21,10 @@ class Canvas extends ExtendedComponent {
 
     scaleCanvas(this.canvas, this.ctx);
 
+    // Annoyingly, canvas calculates from the half-pixel. We can undo this
+    // by offsetting the canvas by half a pixel.
+    this.ctx.translate(0.5, 0.5);
+
     // Our very first render exists purely to set the canvas ref.
     // Once that's done, immediately re-render, but this time we have the ref,
     // so we can render the children and pass them access to the canvas.
