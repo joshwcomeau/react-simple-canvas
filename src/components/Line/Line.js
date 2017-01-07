@@ -25,6 +25,7 @@ class Line extends Component {
     if (strokeDasharray) {
       const dashArray = getDashArray(strokeDasharray, this);
       ctx.setLineDash(dashArray);
+      ctx.lineDashOffset = strokeDashoffset;
     }
 
     ctx.beginPath();
@@ -47,6 +48,7 @@ class Line extends Component {
 
 Line.defaultProps = {
   stroke: '#000000',
+  strokeDashoffset: 0,
   strokeLinecap: 'butt',
   strokeOpacity: 1,
   strokeWidth: 1,

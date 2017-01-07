@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable react/no-multi-comp */
+import React, { Component } from 'react';
 import { storiesOf } from '@kadira/storybook';
 
 import Canvas from '../Canvas';
@@ -98,4 +99,116 @@ storiesOf('Line', module)
         strokeLinecap="round"
       />
     </Canvas>
-  ));
+  ))
+  .add('animated dash offset', () => {
+    class AnimatedLines extends Component {
+      constructor(props) {
+        super(props);
+
+        this.updateAnimation = this.updateAnimation.bind(this);
+
+        this.state = {
+          offset: 0,
+        };
+      }
+
+      componentDidMount() {
+        this.updateAnimation();
+      }
+
+      updateAnimation() {
+        // eslint-disable-next-line no-undef
+        window.requestAnimationFrame(() => {
+          this.setState({ offset: this.state.offset - 5 }, this.updateAnimation);
+        });
+      }
+
+      render() {
+        return (
+          <Canvas width={250} height={250} style={{ border: '1px solid black' }}>
+            <Line
+              key="line-1"
+              x1={25}
+              y1={50}
+              x2={225}
+              y2={50}
+              strokeWidth={2}
+              strokeDasharray={50}
+              strokeDashoffset={this.state.offset}
+            />
+            <Line
+              key="line-2"
+              x1={25}
+              y1={200}
+              x2={225}
+              y2={200}
+              strokeWidth={2}
+              strokeDasharray={50}
+              strokeDashoffset={this.state.offset * -1}
+            />
+          </Canvas>
+        );
+      }
+    }
+
+    return (<AnimatedLines />);
+  })
+  .add('self-drawing line', () => {
+    const LINE_WIDTH = 200;
+
+    // This is the common effect people use to create shapes that draw themselves.
+    class SelfDrawingLine extends Component {
+      constructor(props) {
+        super(props);
+
+        this.updateAnimation = this.updateAnimation.bind(this);
+
+        this.state = {
+          direction: 'growing',
+          offset: 0,
+        };
+      }
+
+      componentDidMount() {
+        this.updateAnimation();
+      }
+
+      updateAnimation() {
+        const { direction, offset } = this.state;
+
+        // eslint-disable-next-line no-undef
+        window.requestAnimationFrame(() => {
+          let newDirection = direction;
+          if (direction === 'growing' && offset >= LINE_WIDTH) {
+            newDirection = 'shrinking';
+          } else if (direction === 'shrinking' && offset <= 0) {
+            newDirection = 'growing';
+          }
+
+          this.setState({
+            offset: this.state.offset + (newDirection === 'growing' ? 5 : -5),
+            direction: newDirection,
+          }, this.updateAnimation);
+        });
+      }
+
+      render() {
+        return (
+          <Canvas width={250} height={250} style={{ border: '1px solid black' }}>
+            <Line
+              key="line-1"
+              x1={25}
+              y1={125}
+              x2={225}
+              y2={125}
+              strokeWidth={2}
+              strokeDasharray={200}
+              strokeDashoffset={this.state.offset}
+            />
+          </Canvas>
+        );
+      }
+    }
+
+    return (<SelfDrawingLine />);
+  });
