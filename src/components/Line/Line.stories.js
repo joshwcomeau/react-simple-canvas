@@ -2,18 +2,18 @@
 import React, { Component } from 'react';
 import { storiesOf } from '@kadira/storybook';
 
-import Canvas from '../Canvas';
+import Svg from '../Svg';
 import Line from '../Line';
 
 
 storiesOf('Line', module)
   .add('with default values for most fields', () => (
-    <Canvas width={250} height={250} style={{ border: '1px solid black' }}>
+    <Svg width={250} height={250} style={{ border: '1px solid black' }}>
       <Line x1={20} y1={20} x2={60} y2={20} />
-    </Canvas>
+    </Svg>
   ))
   .add('with custom stroke and width', () => (
-    <Canvas width={250} height={250} style={{ border: '1px solid black' }}>
+    <Svg width={250} height={250} style={{ border: '1px solid black' }}>
       <Line
         key="line-1"
         x1={-5}
@@ -32,10 +32,10 @@ storiesOf('Line', module)
         stroke="#FF0000"
         strokeWidth={10}
       />
-    </Canvas>
+    </Svg>
   ))
   .add('with custom linecaps', () => (
-    <Canvas width={250} height={250} style={{ border: '1px solid black' }}>
+    <Svg width={250} height={250} style={{ border: '1px solid black' }}>
       <Line
         key="line-1"
         x1={25}
@@ -66,10 +66,10 @@ storiesOf('Line', module)
         strokeWidth={10}
         strokeLinecap="square"
       />
-    </Canvas>
+    </Svg>
   ))
   .add('with opacity', () => (
-    <Canvas width={250} height={250} style={{ border: '1px solid black' }}>
+    <Svg width={250} height={250} style={{ border: '1px solid black' }}>
       {[0, 25, 50, 75, 100, 125, 150, 175, 200, 225].map((pos, index) => (
         <Line
           key={pos}
@@ -80,10 +80,10 @@ storiesOf('Line', module)
           strokeOpacity={index / 10}
         />
       ))}
-    </Canvas>
+    </Svg>
   ))
   .add('with custom dashes', () => (
-    <Canvas width={250} height={250} style={{ border: '1px solid black' }}>
+    <Svg width={250} height={250} style={{ border: '1px solid black' }}>
       <Line
         key="line-1"
         x1={25}
@@ -112,7 +112,7 @@ storiesOf('Line', module)
         strokeDasharray={[0, 4, 10, 4]}
         strokeLinecap="round"
       />
-    </Canvas>
+    </Svg>
   ))
   .add('with offset animation', () => {
     class AnimatedLines extends Component {
@@ -139,7 +139,7 @@ storiesOf('Line', module)
 
       render() {
         return (
-          <Canvas width={250} height={250} style={{ border: '1px solid black' }}>
+          <Svg width={250} height={250} style={{ border: '1px solid black' }}>
             <Line
               key="line-1"
               x1={25}
@@ -160,7 +160,7 @@ storiesOf('Line', module)
               strokeDasharray={50}
               strokeDashoffset={this.state.offset * -1}
             />
-          </Canvas>
+          </Svg>
         );
       }
     }
@@ -192,7 +192,7 @@ storiesOf('Line', module)
 
       render() {
         return (
-          <Canvas width={250} height={250} style={{ border: '1px solid black' }}>
+          <Svg width={250} height={250} style={{ border: '1px solid black' }}>
             <Line
               key="line-1"
               x1={25}
@@ -220,7 +220,7 @@ storiesOf('Line', module)
               strokeWidth={2}
               strokeDasharray={this.state.array * 0.4}
             />
-          </Canvas>
+          </Svg>
         );
       }
     }
@@ -268,7 +268,7 @@ storiesOf('Line', module)
 
       render() {
         return (
-          <Canvas width={250} height={250} style={{ border: '1px solid black' }}>
+          <Svg width={250} height={250} style={{ border: '1px solid black' }}>
             <Line
               key="line-1"
               x1={25}
@@ -279,7 +279,7 @@ storiesOf('Line', module)
               strokeDasharray={200}
               strokeDashoffset={this.state.offset}
             />
-          </Canvas>
+          </Svg>
         );
       }
     }

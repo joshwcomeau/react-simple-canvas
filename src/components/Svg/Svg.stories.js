@@ -1,10 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 
-import Canvas from '../Canvas';
+import Svg from '../Svg';
 
 
-storiesOf('Canvas', module)
+storiesOf('Svg', module)
   .add('default view (renders a canvas with border)', () => (
-    <Canvas width={250} height={250} style={{ border: '1px solid black' }} />
+    <Svg width={250} height={250} style={{ border: '1px solid black' }} />
   ));

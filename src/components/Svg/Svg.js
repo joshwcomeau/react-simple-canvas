@@ -1,15 +1,11 @@
 // eslint-disable-next-line no-unused-vars
-import React, { Component, PureComponent, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import { scaleCanvas } from '../../helpers';
 import { omit } from '../../utils';
 
 
-// If the user is running React >= 15.3.0, we can use PureComponent.
-// Otherwise, fall back to a regular one
-const ExtendedComponent = PureComponent || Component;
-
-class Canvas extends ExtendedComponent {
+class Svg extends Component {
   constructor(props) {
     super(props);
 
@@ -31,6 +27,8 @@ class Canvas extends ExtendedComponent {
     this.forceUpdate();
   }
 
+  // TODO: shouldComponentUpdate optimization, do some benchmarks.
+
   getDelegatedProps() {
     // We want to pass all props that AREN'T specified in this component to
     // the native <canvas> element.
@@ -39,7 +37,7 @@ class Canvas extends ExtendedComponent {
     // creating these DOM-extension components, it's the nicest API by far,
     // and it's important for the developer experience. React will warn the
     // user if they pass illegitimate props to the <canvas> element :)
-    return omit(this.props, Canvas.propTypes);
+    return omit(this.props, Svg.propTypes);
   }
 
   cloneChildrenWithCtx(children) {
@@ -77,15 +75,15 @@ class Canvas extends ExtendedComponent {
   }
 }
 
-Canvas.propTypes = {
+Svg.propTypes = {
   children: PropTypes.node,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
 };
 
-Canvas.defaultProps = {
+Svg.defaultProps = {
   width: 800,
   height: 600,
 };
 
-export default Canvas;
+export default Svg;
