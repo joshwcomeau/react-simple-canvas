@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { Component, PropTypes } from 'react';
 
-import { getDashArray } from '../../helpers';
+import { getDashArray, resetCtx } from '../../helpers';
 
 
 // We can't use SFCs because SFCs can't return null.
@@ -36,7 +36,15 @@ class Line extends Component {
     ctx.strokeStyle = stroke;
     ctx.lineCap = strokeLinecap;
 
+    if (typeof strokeOpacity !== 'undefined') {
+      ctx.globalAlpha = strokeOpacity;
+    }
+
     ctx.stroke();
+
+    // Reset our global Canvas context so that subsequent components aren't
+    // affected by anything we've done here.
+    resetCtx(ctx);
 
     // This component (and all canvas-rendered components) don't formally
     // render anything, at least not in the typical fashion. They return
@@ -50,7 +58,6 @@ Line.defaultProps = {
   stroke: '#000000',
   strokeDashoffset: 0,
   strokeLinecap: 'butt',
-  strokeOpacity: 1,
   strokeWidth: 1,
 };
 
@@ -71,7 +78,7 @@ Line.propTypes = {
     PropTypes.number,
   ]),
   strokeLinecap: PropTypes.oneOf(['butt', 'round', 'square']),
-  strokeOpacity: PropTypes.number.isRequired,
+  strokeOpacity: PropTypes.number,
   strokeWidth: PropTypes.number.isRequired,
 };
 

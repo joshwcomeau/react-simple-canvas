@@ -68,39 +68,21 @@ storiesOf('Line', module)
       />
     </Canvas>
   ))
-  .add('with custom dashes', () => (
+  .add('with opacity', () => (
     <Canvas width={250} height={250} style={{ border: '1px solid black' }}>
-      <Line
-        key="line-1"
-        x1={25}
-        y1={50}
-        x2={225}
-        y2={50}
-        strokeWidth={2}
-        strokeDasharray={5}
-      />
-      <Line
-        key="line-2"
-        x1={25}
-        y1={125}
-        x2={225}
-        y2={125}
-        strokeWidth={2}
-        strokeDasharray="20, 5, 2, 5"
-      />
-      <Line
-        key="line-3"
-        x1={25}
-        y1={200}
-        x2={225}
-        y2={200}
-        strokeWidth={2}
-        strokeDasharray={[0, 4, 10, 4]}
-        strokeLinecap="round"
-      />
+      {[0, 25, 50, 75, 100, 125, 150, 175, 200, 225].map((pos, index) => (
+        <Line
+          key={pos}
+          x1={25}
+          y1={pos}
+          x2={225}
+          y2={pos}
+          strokeOpacity={index / 10}
+        />
+      ))}
     </Canvas>
   ))
-  .add('with opacity', () => (
+  .add('with custom dashes', () => (
     <Canvas width={250} height={250} style={{ border: '1px solid black' }}>
       <Line
         key="line-1"

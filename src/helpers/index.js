@@ -35,6 +35,10 @@ export function scaleCanvas(canvas, ctx) {
   }
 }
 
+export function resetCtx(ctx) {
+  ctx.globalAlpha = 1;
+}
+
 export function getDashArray(input, parentComponent) {
   // Input can be a number (5), a string ('5, 10'), or an array (['5', '10']).
   // We want to convert it to an array of numbers, since that's what canvas
