@@ -2,6 +2,8 @@
 import React, { Component, PropTypes } from 'react';
 
 import { getDashArray, resetCtx } from '../../helpers';
+import { missingCoordinates } from '../../helpers/error-messages';
+import { anyUndefined } from '../../utils';
 
 
 // We can't use SFCs because SFCs can't return null.
@@ -21,6 +23,13 @@ class Line extends Component {
       strokeWidth,
     } = this.props;
     const { ctx } = this.context;
+
+    if (anyUndefined(x1, y1, x2, y2)) {
+      // Don't throw a formal error (after all, an SVG would fail silently).
+      // Instead, log an error, and return prematurely.
+      console.error(missingCoordinates({ x1, y1, x2, y2 }, this));
+      return null;
+    }
 
     if (strokeDasharray) {
       const dashArray = getDashArray(strokeDasharray, this);
@@ -53,6 +62,8 @@ class Line extends Component {
     return null;
   }
 }
+
+Line.displayName = 'Line';
 
 Line.defaultProps = {
   stroke: '#000000',

@@ -33,6 +33,21 @@ describe('Svg', () => {
     expect(mockContext.clearRect.firstCall.args).to.deep.equal([0, 0, 100, 100]);
   });
 
+  it('computes delegated props for <canvas>', () => {
+    const mockContext = new MockContext();
+
+    const getDelegatedPropsSpy = spy(Svg.prototype, 'getDelegatedProps');
+
+    mount(<Svg mockContext={mockContext} className="myCanvas" />);
+
+    // It gets called twice, because of the double-render on mount to get the ref
+    expect(getDelegatedPropsSpy.callCount).to.equal(2);
+
+    expect(
+      getDelegatedPropsSpy.firstCall.returned({ className: 'myCanvas' })
+    ).to.equal(true);
+  });
+
   it('passes HTML context through React context', () => {
     const mockContext = new MockContext();
 

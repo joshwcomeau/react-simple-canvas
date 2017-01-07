@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { pick, omit } from './index';
+import { pick, omit, anyUndefined } from './index';
 
 const { describe, it } = global;
 
@@ -146,6 +146,36 @@ describe('utils', () => {
       const actualOutput = omit(object, keys);
 
       expect(actualOutput).to.deep.equal(expectedOutput);
+    });
+  });
+
+  describe('anyUndefined', () => {
+    it('returns false for a single defined value', () => {
+      const actualOutput = anyUndefined(true);
+      const expectedOutput = false;
+
+      expect(actualOutput).to.equal(expectedOutput);
+    });
+
+    it('returns false for a null value', () => {
+      const actualOutput = anyUndefined(null);
+      const expectedOutput = false;
+
+      expect(actualOutput).to.equal(expectedOutput);
+    });
+
+    it('returns true for a single undefined value', () => {
+      const actualOutput = anyUndefined(undefined);
+      const expectedOutput = true;
+
+      expect(actualOutput).to.equal(expectedOutput);
+    });
+
+    it('returns true for one of several undefined', () => {
+      const actualOutput = anyUndefined(true, undefined, 8);
+      const expectedOutput = true;
+
+      expect(actualOutput).to.equal(expectedOutput);
     });
   });
 });

@@ -28,3 +28,7 @@ export const omit = (object, rejectedKeys) => {
 
   return pick(object, desiredKeys);
 };
+
+export const anyUndefined = (...args) => (
+  args.some(arg => typeof arg === 'undefined')
+);

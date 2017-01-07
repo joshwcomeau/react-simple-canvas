@@ -63,6 +63,8 @@ class Svg extends Component {
   }
 }
 
+Svg.displayName = 'Svg';
+
 Svg.childContextTypes = {
   ctx: PropTypes.object,
 };

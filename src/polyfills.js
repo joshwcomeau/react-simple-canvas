@@ -52,6 +52,41 @@ if (!Array.prototype.includes) {
   });
 }
 
+if (!Array.prototype.some) {
+  Array.prototype.some = function(evaluator, thisArg) {
+    if (!this) {
+      throw new TypeError('Array.prototype.some called on null or undefined');
+    }
+
+    if (typeof(evaluator) !== 'function') {
+      if (typeof(evaluator) === 'string') {
+        // Attempt to convert it to a function
+        if ( ! (evaluator = eval(evaluator)) ){
+          throw new TypeError();
+        }
+      } else {
+        throw new TypeError();
+      }
+    }
+
+    var i;
+    if (thisArg===undefined){  // Optimize for thisArg
+      for (i in this) {
+        if (evaluator(this[i], i, this)) {
+          return true;
+        }
+      }
+      return false;
+    }
+    for (i in this) {
+      if (evaluator.call(thisArg, this[i], i, this)) {
+        return true;
+      }
+    }
+    return false;
+  };
+}
+
 if (!Array.isArray) {
   Array.isArray = arg => (
     Object.prototype.toString.call(arg) === '[object Array]'
