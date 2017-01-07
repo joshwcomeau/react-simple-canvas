@@ -13,7 +13,9 @@ class Svg extends Component {
   }
 
   componentDidMount() {
-    this.ctx = this.canvas.getContext('2d');
+    // For testing purposes, we allow a mock context instance to be passed in.
+    // In production code, `mockContext` is always undefined.
+    this.ctx = this.props.mockContext || this.canvas.getContext('2d');
 
     scaleCanvas(this.canvas, this.ctx);
 
@@ -79,6 +81,7 @@ Svg.propTypes = {
   children: PropTypes.node,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
+  mockContext: PropTypes.object,
 };
 
 Svg.defaultProps = {
