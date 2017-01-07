@@ -3,6 +3,7 @@
 // This is an auto generated file with React CDK.
 // Do not modify this file.
 // Use `.scripts/user/pretest.js instead`.
+/* eslint-disable */
 
 process.env.NODE_ENV = 'development';
 require('babel-core/register');
