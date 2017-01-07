@@ -9,7 +9,6 @@ import { getDashArray, resetCtx } from '../../helpers';
 class Line extends Component {
   render() {
     const {
-      ctx,
       x1,
       y1,
       x2,
@@ -21,6 +20,7 @@ class Line extends Component {
       strokeOpacity,
       strokeWidth,
     } = this.props;
+    const { ctx } = this.context;
 
     if (strokeDasharray) {
       const dashArray = getDashArray(strokeDasharray, this);
@@ -62,7 +62,6 @@ Line.defaultProps = {
 };
 
 Line.propTypes = {
-  ctx: PropTypes.object,
   x1: PropTypes.number.isRequired,
   y1: PropTypes.number.isRequired,
   x2: PropTypes.number.isRequired,
@@ -80,6 +79,10 @@ Line.propTypes = {
   strokeLinecap: PropTypes.oneOf(['butt', 'round', 'square']),
   strokeOpacity: PropTypes.number,
   strokeWidth: PropTypes.number.isRequired,
+};
+
+Line.contextTypes = {
+  ctx: PropTypes.object,
 };
 
 export default Line;

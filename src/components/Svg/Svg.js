@@ -6,10 +6,8 @@ import { omit } from '../../utils';
 
 
 class Svg extends Component {
-  constructor(props) {
-    super(props);
-
-    this.cloneChildrenWithCtx = this.cloneChildrenWithCtx.bind(this);
+  getChildContext() {
+    return { ctx: this.ctx };
   }
 
   componentDidMount() {
@@ -42,18 +40,6 @@ class Svg extends Component {
     return omit(this.props, Svg.propTypes);
   }
 
-  cloneChildrenWithCtx(children) {
-    if (!children) {
-      return null;
-    }
-
-    if (Array.isArray(children)) {
-      return children.map(this.cloneChildrenWithCtx);
-    }
-
-    return React.cloneElement(children, { ctx: this.ctx });
-  }
-
   render() {
     const { width, height, children } = this.props;
 
@@ -71,11 +57,15 @@ class Svg extends Component {
         width={width}
         height={height}
       >
-        {isFirstRender ? null : this.cloneChildrenWithCtx(children)}
+        {isFirstRender ? null : children}
       </canvas>
     );
   }
 }
+
+Svg.childContextTypes = {
+  ctx: PropTypes.object,
+};
 
 Svg.propTypes = {
   children: PropTypes.node,
