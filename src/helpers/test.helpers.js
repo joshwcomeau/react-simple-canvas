@@ -11,6 +11,7 @@ export class MockContext {
     this.beginPath = stub();
     this.moveTo = stub();
     this.lineTo = stub();
+    this.rect = stub();
     this.stroke = stub();
     this.fill = stub();
     this.lineWidth = stub();
