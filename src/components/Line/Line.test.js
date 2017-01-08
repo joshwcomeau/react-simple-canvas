@@ -2,21 +2,21 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { expect } from 'chai';
-import { spy } from 'sinon';
+import { stub } from 'sinon';
 
 import Line from '../Line';
 import { MockContext } from '../../helpers/test.helpers';
 
 const { describe, it } = global;
 
-let consoleErrorSpy = spy(console, 'error');
+let consoleErrorStub = stub(console, 'error');
 
 describe('Line', () => {
   beforeEach(() => {
-    consoleErrorSpy.reset();
+    consoleErrorStub.reset();
   });
   after(() => {
-    consoleErrorSpy.restore();
+    consoleErrorStub.restore();
   });
 
   it('complains when no coordinates are given', () => {
@@ -24,7 +24,7 @@ describe('Line', () => {
 
     const wrapper = shallow(<Line />, { context: { ctx: mockContext } });
 
-    expect(consoleErrorSpy.callCount).to.equal(1);
+    expect(consoleErrorStub.callCount).to.equal(1);
   });
 
   it('complains when a single coordinate is missing', () => {
@@ -35,7 +35,7 @@ describe('Line', () => {
       { context: { ctx: mockContext } }
     );
 
-    expect(consoleErrorSpy.callCount).to.equal(1);
+    expect(consoleErrorStub.callCount).to.equal(1);
   });
 
   it('renders without incident', () => {
