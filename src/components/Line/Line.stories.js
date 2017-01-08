@@ -2,18 +2,19 @@
 import React, { Component } from 'react';
 import { storiesOf } from '@kadira/storybook';
 
+import { createSvgDecorator } from '../../helpers/stories.helpers';
+import G from '../G';
 import Svg from '../Svg';
 import Line from '../Line';
 
 
 storiesOf('Line', module)
+  .addDecorator(createSvgDecorator())
   .add('with default values for most fields', () => (
-    <Svg width={250} height={250} style={{ border: '1px solid black' }}>
-      <Line x1={20} y1={20} x2={60} y2={20} />
-    </Svg>
+    <Line x1={20} y1={20} x2={60} y2={20} />
   ))
   .add('with custom stroke and width', () => (
-    <Svg width={250} height={250} style={{ border: '1px solid black' }}>
+    <G>
       <Line
         key="line-1"
         x1={-5}
@@ -32,10 +33,10 @@ storiesOf('Line', module)
         stroke="#FF0000"
         strokeWidth={10}
       />
-    </Svg>
+    </G>
   ))
   .add('with custom linecaps', () => (
-    <Svg width={250} height={250} style={{ border: '1px solid black' }}>
+    <G>
       <Line
         key="line-1"
         x1={25}
@@ -66,10 +67,10 @@ storiesOf('Line', module)
         strokeWidth={10}
         strokeLinecap="square"
       />
-    </Svg>
+    </G>
   ))
   .add('with opacity', () => (
-    <Svg width={250} height={250} style={{ border: '1px solid black' }}>
+    <G>
       {[0, 25, 50, 75, 100, 125, 150, 175, 200, 225].map((pos, index) => (
         <Line
           key={pos}
@@ -80,10 +81,10 @@ storiesOf('Line', module)
           strokeOpacity={index / 10}
         />
       ))}
-    </Svg>
+    </G>
   ))
   .add('with custom dashes', () => (
-    <Svg width={250} height={250} style={{ border: '1px solid black' }}>
+    <G>
       <Line
         key="line-1"
         x1={25}
@@ -112,8 +113,10 @@ storiesOf('Line', module)
         strokeDasharray={[0, 4, 10, 4]}
         strokeLinecap="round"
       />
-    </Svg>
+    </G>
   ))
+
+storiesOf('Line - animations', module)
   .add('with offset animation', () => {
     class AnimatedLines extends Component {
       constructor(props) {
@@ -139,7 +142,7 @@ storiesOf('Line', module)
 
       render() {
         return (
-          <Svg width={250} height={250} style={{ border: '1px solid black' }}>
+          <Svg width={250} height={250} style={{ border: '1px solid #888' }}>
             <Line
               key="line-1"
               x1={25}
@@ -192,7 +195,7 @@ storiesOf('Line', module)
 
       render() {
         return (
-          <Svg width={250} height={250} style={{ border: '1px solid black' }}>
+          <Svg width={250} height={250} style={{ border: '1px solid #888' }}>
             <Line
               key="line-1"
               x1={25}
@@ -268,7 +271,7 @@ storiesOf('Line', module)
 
       render() {
         return (
-          <Svg width={250} height={250} style={{ border: '1px solid black' }}>
+          <Svg width={250} height={250} style={{ border: '1px solid #888' }}>
             <Line
               key="line-1"
               x1={25}
