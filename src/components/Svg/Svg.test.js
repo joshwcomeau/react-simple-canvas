@@ -17,14 +17,6 @@ describe('Svg', () => {
     expect(wrapper).to.be.ok;
   });
 
-  it('invokes a half-pixel translation', () => {
-    const mockContext = new MockContext();
-    mount(<Svg mockContext={mockContext} />);
-
-    expect(mockContext.translate.callCount).to.equal(1);
-    expect(mockContext.translate.firstCall.args).to.deep.equal([0.5, 0.5]);
-  });
-
   it('clears the canvas in the render', () => {
     const mockContext = new MockContext();
     mount(<Svg width={100} height={100} mockContext={mockContext} />);

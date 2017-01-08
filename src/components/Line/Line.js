@@ -10,6 +10,7 @@ import { anyUndefined } from '../../utils';
 // eslint-disable-next-line react/prefer-stateless-function
 class Line extends Component {
   render() {
+    const { ctx } = this.context;
     const {
       x1,
       y1,
@@ -22,7 +23,7 @@ class Line extends Component {
       strokeOpacity,
       strokeWidth,
     } = this.props;
-    const { ctx } = this.context;
+
 
     if (anyUndefined(x1, y1, x2, y2)) {
       // Don't throw a formal error (after all, an SVG would fail silently).
@@ -38,8 +39,11 @@ class Line extends Component {
     }
 
     ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
+
+    // Frustratingly, the line API works on half-pixels, so we'll get blurry
+    // lines unless we offset by 0.5 pixels.
+    ctx.moveTo(x1 + 0.5, y1 + 0.5);
+    ctx.lineTo(x2 + 0.5, y2 + 0.5);
 
     ctx.lineWidth = strokeWidth;
     ctx.strokeStyle = stroke;
