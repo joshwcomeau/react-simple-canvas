@@ -132,11 +132,13 @@ import { MockContext } from '../../helpers/test.helpers';
 
 const { describe, it } = global;
 
-let consoleErrorStub = stub(console, 'error');
-const mockContext = new MockContext();
 
+let consoleErrorStub;
 
 describe('${ComponentName}', () => {
+  before(() => {
+    consoleErrorStub = stub(console, 'error');
+  })
   beforeEach(() => {
     consoleErrorStub.reset();
   });
@@ -145,13 +147,16 @@ describe('${ComponentName}', () => {
   });
 
   it('renders without incident', () => {
+    const mockContext = new MockContext();
+
     const wrapper = shallow(
       <${ComponentName} />,
-      { context: { ctx> mockContext } }
+      { context: { ctx: mockContext } }
     );
 
     expect(wrapper).to.be.ok;
-  });\n`;
+  });
+});\n`;
 }
 
 const ComponentName = process.argv[2];

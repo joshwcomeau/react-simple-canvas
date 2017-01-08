@@ -9,9 +9,13 @@ import { MockContext } from '../../helpers/test.helpers';
 
 const { describe, it } = global;
 
-let consoleErrorStub = stub(console, 'error');
+
+let consoleErrorStub;
 
 describe('Line', () => {
+  before(() => {
+    consoleErrorStub = stub(console, 'error');
+  })
   beforeEach(() => {
     consoleErrorStub.reset();
   });

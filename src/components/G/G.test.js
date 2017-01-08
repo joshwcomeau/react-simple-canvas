@@ -10,10 +10,13 @@ import { MockContext } from '../../helpers/test.helpers';
 
 const { describe, it } = global;
 
-let consoleErrorStub = stub(console, 'error');
-const mockContext = new MockContext();
+
+let consoleErrorStub;
 
 describe('G', () => {
+  before(() => {
+    consoleErrorStub = stub(console, 'error');
+  })
   beforeEach(() => {
     consoleErrorStub.reset();
   });
@@ -22,10 +25,13 @@ describe('G', () => {
   });
 
   it('renders without incident', () => {
+    const mockContext = new MockContext();
+
     const wrapper = shallow(
       <G />,
-      { context: { ctx> mockContext } }
+      { context: { ctx: mockContext } }
     );
 
     expect(wrapper).to.be.ok;
   });
+});

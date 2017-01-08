@@ -10,6 +10,7 @@ import { MockContext } from '../../helpers/test.helpers';
 
 const { describe, it } = global;
 
+
 describe('Svg', () => {
   it('renders without incident', () => {
     const wrapper = shallow(<Svg />);
