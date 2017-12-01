@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { storiesOf } from '@kadira/storybook';
 
 import { createSvgDecorator } from '../../helpers/stories.helpers';
+import SelfDrawing from '../../helpers/story-components/SelfDrawing';
 import G from '../G';
 import Svg from '../Svg';
 import Line from '../Line';
@@ -233,59 +234,17 @@ storiesOf('Line - animations', module)
   .add('with self-drawing animation', () => {
     const LINE_WIDTH = 200;
 
-    // This is the common effect people use to create shapes that draw themselves.
-    class SelfDrawingLine extends Component {
-      constructor(props) {
-        super(props);
-
-        this.updateAnimation = this.updateAnimation.bind(this);
-
-        this.state = {
-          direction: 'growing',
-          offset: 0,
-        };
-      }
-
-      componentDidMount() {
-        this.updateAnimation();
-      }
-
-      updateAnimation() {
-        const { direction, offset } = this.state;
-
-        // eslint-disable-next-line no-undef
-        window.requestAnimationFrame(() => {
-          let newDirection = direction;
-          if (direction === 'growing' && offset >= LINE_WIDTH) {
-            newDirection = 'shrinking';
-          } else if (direction === 'shrinking' && offset <= 0) {
-            newDirection = 'growing';
-          }
-
-          this.setState({
-            offset: this.state.offset + (newDirection === 'growing' ? 5 : -5),
-            direction: newDirection,
-          }, this.updateAnimation);
-        });
-      }
-
-      render() {
-        return (
-          <Svg width={250} height={250} style={{ border: '1px solid #888' }}>
-            <Line
-              key="line-1"
-              x1={25}
-              y1={125}
-              x2={225}
-              y2={125}
-              strokeWidth={2}
-              strokeDasharray={200}
-              strokeDashoffset={this.state.offset}
-            />
-          </Svg>
-        );
-      }
-    }
-
-    return (<SelfDrawingLine />);
+    return (
+      <SelfDrawing perimeterLength={LINE_WIDTH}>
+        <Line
+          key="line-1"
+          x1={25}
+          y1={125}
+          x2={225}
+          y2={125}
+          strokeWidth={2}
+          strokeDasharray={LINE_WIDTH}
+        />
+      </SelfDrawing>
+    );
   });

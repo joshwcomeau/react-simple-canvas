@@ -1,7 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import React, { Component, PropTypes } from 'react';
 
-import { getDashArray, resetCtx } from '../../helpers';
+import { resetCtx } from '../../helpers';
+import { applyStroke } from '../../helpers/stroke.helpers';
 import { missingCoordinates } from '../../helpers/error-messages';
 import { anyUndefined } from '../../utils';
 
@@ -32,12 +33,6 @@ class Line extends Component {
       return null;
     }
 
-    if (strokeDasharray) {
-      const dashArray = getDashArray(strokeDasharray, this);
-      ctx.setLineDash(dashArray);
-      ctx.lineDashOffset = strokeDashoffset;
-    }
-
     ctx.beginPath();
 
     // Frustratingly, the line API works on half-pixels, so we'll get blurry
@@ -45,15 +40,11 @@ class Line extends Component {
     ctx.moveTo(x1 + 0.5, y1 + 0.5);
     ctx.lineTo(x2 + 0.5, y2 + 0.5);
 
-    ctx.lineWidth = strokeWidth;
-    ctx.strokeStyle = stroke;
-    ctx.lineCap = strokeLinecap;
-
-    if (typeof strokeOpacity !== 'undefined') {
-      ctx.globalAlpha = strokeOpacity;
+    if (stroke) {
+      applyStroke(ctx, this.props);
     }
 
-    ctx.stroke();
+    ctx.closePath();
 
     // Reset our global Canvas context so that subsequent components aren't
     // affected by anything we've done here.

@@ -3,12 +3,8 @@ import { stub } from 'sinon';
 
 export class MockContext {
   constructor() {
-    // Methods used in the <Svg> class, for general Canvas processing
-    this.translate = stub();
-    this.clearRect = stub();
-
-    // Methods used by children components
     this.beginPath = stub();
+    this.closePath = stub();
     this.moveTo = stub();
     this.lineTo = stub();
     this.rect = stub();
@@ -20,5 +16,7 @@ export class MockContext {
     this.globalAlpha = stub();
     this.setLineDash = stub();
     this.lineDashOffset = stub();
+    this.translate = stub();
+    this.clearRect = stub();
   }
 }

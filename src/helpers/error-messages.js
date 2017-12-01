@@ -1,6 +1,6 @@
 import { MODULE_NAME } from '../constants';
 
-export const invalidInputForGettingDashArray = (input, parentComponent) => `
+export const invalidInputForGettingDashArrayA = (input, parentComponent) => `
 >> Error, via ${MODULE_NAME} <<
 
 You attempted to use a dash array, but provided an invalid input: ${input}.
