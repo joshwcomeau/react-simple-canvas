@@ -57,6 +57,7 @@
     "react": "^0.14.0 || ^15.0.0"
   },
   "dependencies": {
-    "babel-runtime": "^6.11.6"
+    "babel-runtime": "^6.11.6",
+    "parse-svg-path": "^0.1.2"
   }
 }
