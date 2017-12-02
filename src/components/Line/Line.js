@@ -1,15 +1,34 @@
-// eslint-disable-next-line no-unused-vars
-import React, { Component, PropTypes } from 'react';
+// @flow
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
+import { DEFAULT_STROKE_PROPS } from '../../constants';
 import { resetCtx } from '../../helpers';
 import { applyStroke } from '../../helpers/stroke.helpers';
 import { missingCoordinates } from '../../helpers/error-messages';
 import { anyUndefined } from '../../utils';
 
+import type { strokeAttributes } from '../../types';
+
+type Props = {
+  x1?: number,
+  y1?: number,
+  x2?: number,
+  y2?: number,
+  ...strokeAttributes,
+};
 
 // We can't use SFCs because SFCs can't return null.
 // eslint-disable-next-line react/prefer-stateless-function
-class Line extends Component {
+class Line extends Component<Props> {
+  static defaultProps = {
+    ...DEFAULT_STROKE_PROPS,
+  };
+
+  static contextTypes = {
+    ctx: PropTypes.object,
+  };
+
   render() {
     const { ctx } = this.context;
     const {
@@ -24,7 +43,6 @@ class Line extends Component {
       strokeOpacity,
       strokeWidth,
     } = this.props;
-
 
     if (anyUndefined(x1, y1, x2, y2)) {
       // Don't throw a formal error (after all, an SVG would fail silently).
@@ -57,38 +75,5 @@ class Line extends Component {
     return null;
   }
 }
-
-Line.displayName = 'Line';
-
-Line.defaultProps = {
-  stroke: '#000000',
-  strokeDashoffset: 0,
-  strokeLinecap: 'butt',
-  strokeWidth: 1,
-};
-
-Line.propTypes = {
-  x1: PropTypes.number.isRequired,
-  y1: PropTypes.number.isRequired,
-  x2: PropTypes.number.isRequired,
-  y2: PropTypes.number.isRequired,
-  stroke: PropTypes.string.isRequired,
-  strokeDasharray: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.arrayOf(PropTypes.number),
-  ]),
-  strokeDashoffset: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
-  strokeLinecap: PropTypes.oneOf(['butt', 'round', 'square']),
-  strokeOpacity: PropTypes.number,
-  strokeWidth: PropTypes.number.isRequired,
-};
-
-Line.contextTypes = {
-  ctx: PropTypes.object,
-};
 
 export default Line;

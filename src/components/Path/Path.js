@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import parsePath from 'parse-svg-path';
 
+import { DEFAULT_STROKE_PROPS } from '../../constants';
 import { resetCtx } from '../../helpers';
 import { applyStroke } from '../../helpers/stroke.helpers';
 import { missingCoordinates } from '../../helpers/error-messages';
@@ -20,10 +21,7 @@ type Props = {
 // eslint-disable-next-line react/prefer-stateless-function
 class Path extends Component<Props> {
   static defaultProps = {
-    stroke: '#000000',
-    strokeDashoffset: 0,
-    strokeLinecap: 'butt',
-    strokeWidth: 1,
+    ...DEFAULT_STROKE_PROPS,
   };
 
   static contextTypes = {

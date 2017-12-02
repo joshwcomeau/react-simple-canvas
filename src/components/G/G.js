@@ -1,29 +1,20 @@
-import React, { Component, PropTypes } from 'react';
+// @flow
+import React from 'react';
+import PropTypes from 'prop-types';
 
+type Props = {
+  children: any,
+};
 
 // TODO: Make the G actually useful. Right now it just serves to group
 // elements semantically, and to allow stories to be written with decorators.
-// Also, I want to see if it can be done without adding illegal markup within
-// a Canvas.
-const G = ({ children }) => (
-  <div>
-    {children}
-  </div>
-);
-
-
-G.displayName = 'G'
-
-G.propTypes = {
-
-};
+// ALSO TODO: The wrapper isn't needed in React 16, but React CDK doesn't
+// support React 16. If i'm serious about this project I should move all the
+// code to a new build system (NWB?)
+const G = ({ children }: Props) => <div>{children}</div>;
 
 G.contextTypes = {
   ctx: PropTypes.object,
-};
-
-G.defaultProps = {
-
 };
 
 export default G;

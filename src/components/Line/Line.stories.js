@@ -1,3 +1,4 @@
+// @flow
 /* eslint-disable react/no-multi-comp */
 import React, { Component } from 'react';
 import { storiesOf } from '@kadira/storybook';
@@ -7,7 +8,6 @@ import SelfDrawing from '../../helpers/story-components/SelfDrawing';
 import G from '../G';
 import Svg from '../Svg';
 import Line from '../Line';
-
 
 storiesOf('Line', module)
   .addDecorator(createSvgDecorator())
@@ -115,7 +115,7 @@ storiesOf('Line', module)
         strokeLinecap="round"
       />
     </G>
-  ))
+  ));
 
 storiesOf('Line - animations', module)
   .add('with offset animation', () => {
@@ -137,7 +137,10 @@ storiesOf('Line - animations', module)
       updateAnimation() {
         // eslint-disable-next-line no-undef
         window.requestAnimationFrame(() => {
-          this.setState({ offset: this.state.offset - 5 }, this.updateAnimation);
+          this.setState(
+            { offset: this.state.offset - 5 },
+            this.updateAnimation,
+          );
         });
       }
 
@@ -169,7 +172,7 @@ storiesOf('Line - animations', module)
       }
     }
 
-    return (<AnimatedLines />);
+    return <AnimatedLines />;
   })
   .add('with array animation', () => {
     class AnimatedLines extends Component {
@@ -229,7 +232,7 @@ storiesOf('Line - animations', module)
       }
     }
 
-    return (<AnimatedLines />);
+    return <AnimatedLines />;
   })
   .add('with self-drawing animation', () => {
     const LINE_WIDTH = 200;

@@ -1,3 +1,4 @@
+// @flow
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { shallow, mount } from 'enzyme';
@@ -9,13 +10,12 @@ import { MockContext } from '../../helpers/test.helpers';
 
 const { describe, it } = global;
 
-
 let consoleErrorStub;
 
 describe('Line', () => {
   before(() => {
     consoleErrorStub = stub(console, 'error');
-  })
+  });
   beforeEach(() => {
     consoleErrorStub.reset();
   });
@@ -34,10 +34,9 @@ describe('Line', () => {
   it('complains when a single coordinate is missing', () => {
     const mockContext = new MockContext();
 
-    const wrapper = shallow(
-      <Line x1={0} y1={10} x2={20} />,
-      { context: { ctx: mockContext } }
-    );
+    const wrapper = shallow(<Line x1={0} y1={10} x2={20} />, {
+      context: { ctx: mockContext },
+    });
 
     expect(consoleErrorStub.callCount).to.equal(1);
   });
@@ -45,10 +44,9 @@ describe('Line', () => {
   it('renders without incident', () => {
     const mockContext = new MockContext();
 
-    const wrapper = shallow(
-      <Line x1={0} y1={0} x2={10} y2={20} />,
-      { context: { ctx: mockContext } }
-    );
+    const wrapper = shallow(<Line x1={0} y1={0} x2={10} y2={20} />, {
+      context: { ctx: mockContext },
+    });
 
     expect(wrapper).to.be.ok;
   });
@@ -56,10 +54,9 @@ describe('Line', () => {
   it('increments moveTo and lineTo by 0.5px, to satisfy weird Canvas API', () => {
     const mockContext = new MockContext();
 
-    const wrapper = shallow(
-      <Line x1={0} y1={0} x2={10} y2={20} />,
-      { context: { ctx: mockContext } }
-    );
+    const wrapper = shallow(<Line x1={0} y1={0} x2={10} y2={20} />, {
+      context: { ctx: mockContext },
+    });
 
     const expectedMoveToArgs = [0.5, 0.5];
     const expectedLineToArgs = [10.5, 20.5];

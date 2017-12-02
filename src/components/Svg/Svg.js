@@ -1,11 +1,28 @@
+// @flow
 // eslint-disable-next-line no-unused-vars
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { scaleCanvas } from '../../helpers';
 import { omit } from '../../utils';
 
+type Props = {
+  children: any,
+  width: number,
+  height: number,
+  mockContext: any,
+};
 
-class Svg extends Component {
+class Svg extends Component<Props> {
+  static defaultProps = {
+    width: 800,
+    height: 600,
+  };
+
+  static childContextTypes = {
+    ctx: PropTypes.object,
+  };
+
   getChildContext() {
     return { ctx: this.ctx };
   }
@@ -37,7 +54,7 @@ class Svg extends Component {
     // creating these DOM-extension components, it's the nicest API by far,
     // and it's important for the developer experience. React will warn the
     // user if they pass illegitimate props to the <canvas> element :)
-    return omit(this.props, Svg.propTypes);
+    return omit(this.props, 'children', 'width', 'height', 'mockContext');
   }
 
   render() {
@@ -52,7 +69,9 @@ class Svg extends Component {
 
     return (
       <canvas
-        ref={(c) => { this.canvas = c; }}
+        ref={c => {
+          this.canvas = c;
+        }}
         {...this.getDelegatedProps()}
         width={width}
         height={height}
@@ -62,23 +81,5 @@ class Svg extends Component {
     );
   }
 }
-
-Svg.displayName = 'Svg';
-
-Svg.childContextTypes = {
-  ctx: PropTypes.object,
-};
-
-Svg.propTypes = {
-  children: PropTypes.node,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  mockContext: PropTypes.object,
-};
-
-Svg.defaultProps = {
-  width: 800,
-  height: 600,
-};
 
 export default Svg;

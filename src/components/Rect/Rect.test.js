@@ -1,3 +1,4 @@
+// @flow
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { shallow, render, mount } from 'enzyme';
@@ -10,13 +11,12 @@ import { MockContext } from '../../helpers/test.helpers';
 
 const { describe, it } = global;
 
-
 let consoleErrorStub;
 
 describe('Rect', () => {
   before(() => {
     consoleErrorStub = stub(console, 'error');
-  })
+  });
   beforeEach(() => {
     consoleErrorStub.reset();
   });
@@ -27,10 +27,7 @@ describe('Rect', () => {
   it('renders without incident', () => {
     const mockContext = new MockContext();
 
-    const wrapper = shallow(
-      <Rect />,
-      { context: { ctx: mockContext } }
-    );
+    const wrapper = shallow(<Rect />, { context: { ctx: mockContext } });
 
     expect(wrapper).to.be.ok;
   });
@@ -38,10 +35,9 @@ describe('Rect', () => {
   it('invokes ctx.rect with the right props', () => {
     const mockContext = new MockContext();
 
-    const wrapper = shallow(
-      <Rect x={25} y={50} width={100} height={200} />,
-      { context: { ctx: mockContext } }
-    );
+    const wrapper = shallow(<Rect x={25} y={50} width={100} height={200} />, {
+      context: { ctx: mockContext },
+    });
 
     const expectedRectArgs = [25, 50, 100, 200];
     const actualRectArgs = mockContext.rect.firstCall.args;
@@ -52,10 +48,9 @@ describe('Rect', () => {
   it('fills, but does not stroke, by default', () => {
     const mockContext = new MockContext();
 
-    const wrapper = shallow(
-      <Rect x={25} y={50} width={100} height={200} />,
-      { context: { ctx: mockContext } }
-    );
+    const wrapper = shallow(<Rect x={25} y={50} width={100} height={200} />, {
+      context: { ctx: mockContext },
+    });
 
     expect(mockContext.fill.callCount).to.equal(1);
     expect(mockContext.stroke.callCount).to.equal(0);
@@ -66,7 +61,7 @@ describe('Rect', () => {
 
     const wrapper = shallow(
       <Rect x={25} y={50} width={100} height={200} stroke="#F00" />,
-      { context: { ctx: mockContext } }
+      { context: { ctx: mockContext } },
     );
 
     expect(mockContext.stroke.callCount).to.equal(1);
@@ -83,7 +78,7 @@ describe('Rect', () => {
 
     const wrapper = shallow(
       <Rect x={25} y={50} width={100} height={200} fill="#F00" />,
-      { context: { ctx: mockContext } }
+      { context: { ctx: mockContext } },
     );
 
     expect(mockContext.fill.callCount).to.equal(1);
@@ -95,7 +90,7 @@ describe('Rect', () => {
 
     const wrapper = shallow(
       <Rect x={25} y={50} width={100} height={200} fill={null} />,
-      { context: { ctx: mockContext } }
+      { context: { ctx: mockContext } },
     );
 
     expect(mockContext.fill.callCount).to.equal(0);
@@ -109,7 +104,7 @@ describe('Rect', () => {
 
     const wrapper = shallow(
       <Rect x={25} y={50} width={100} height={200} fill="none" />,
-      { context: { ctx: mockContext } }
+      { context: { ctx: mockContext } },
     );
 
     expect(mockContext.fill.callCount).to.equal(0);
@@ -120,7 +115,7 @@ describe('Rect', () => {
 
     const wrapper = shallow(
       <Rect x={25} y={50} width={100} height={200} stroke="none" />,
-      { context: { ctx: mockContext } }
+      { context: { ctx: mockContext } },
     );
 
     expect(mockContext.stroke.callCount).to.equal(0);

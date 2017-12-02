@@ -1,1 +1,2 @@
-export { default } from "./Path";
+// @flow
+export { default } from './Path';

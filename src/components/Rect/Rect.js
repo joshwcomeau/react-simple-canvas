@@ -1,26 +1,38 @@
-import React, { Component, PropTypes } from 'react';
+// @flow
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
+import { DEFAULT_STROKE_PROPS } from '../../constants';
 import { resetCtx } from '../../helpers';
 import { applyStroke } from '../../helpers/stroke.helpers';
 import { missingCoordinates } from '../../helpers/error-messages';
 import { anyUndefined } from '../../utils';
 
+import type { strokeAttributes, fillAttributes } from '../../types';
+
+type Props = {
+  x?: number,
+  y?: number,
+  width?: number,
+  height?: number,
+  ...strokeAttributes,
+  ...fillAttributes,
+};
 
 // We can't use SFCs because SFCs can't return null.
 // eslint-disable-next-line react/prefer-stateless-function
-class Rect extends Component {
+class Rect extends Component<Props> {
+  static defaultProps = {
+    ...DEFAULT_STROKE_PROPS,
+  };
+
+  static contextTypes = {
+    ctx: PropTypes.object,
+  };
+
   render() {
     const { ctx } = this.context;
-    const {
-      x,
-      y,
-      width,
-      height,
-      rx,
-      ry,
-      stroke,
-      fill,
-    } = this.props;
+    const { x, y, width, height, stroke, fill } = this.props;
 
     if (anyUndefined(x, y, width, height)) {
       // Don't throw a formal error (after all, an SVG would fail silently).
@@ -37,7 +49,7 @@ class Rect extends Component {
 
     if (fill && fill !== 'none') {
       ctx.fillStyle = fill;
-      ctx.fill()
+      ctx.fill();
     }
 
     // Reset our global Canvas context so that subsequent components aren't
@@ -46,27 +58,6 @@ class Rect extends Component {
 
     return null;
   }
-};
-
-Rect.displayName = 'Rect'
-
-Rect.propTypes = {
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-  rx: PropTypes.number,
-  ry: PropTypes.number,
-  stroke: PropTypes.string,
-  fill: PropTypes.string,
-};
-
-Rect.contextTypes = {
-  ctx: PropTypes.object,
-};
-
-Rect.defaultProps = {
-  fill: '#000000',
-};
+}
 
 export default Rect;

@@ -6,3 +6,7 @@ export type strokeAttributes = {
   strokeOpacity?: number,
   strokeWidth?: number,
 };
+
+export type fillAttributes = {
+  fill?: string,
+};

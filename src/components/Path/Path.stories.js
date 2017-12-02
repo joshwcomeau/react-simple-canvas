@@ -1,3 +1,4 @@
+// @flow
 /* eslint-disable react/no-multi-comp */
 import React, { Component } from 'react';
 import { storiesOf } from '@kadira/storybook';
