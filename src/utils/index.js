@@ -1,3 +1,6 @@
+export const random = (min, max) =>
+  Math.floor(Math.random() * (max - min)) + min;
+
 export const pick = (object, keys) => {
   if (!Array.isArray(keys)) {
     // eslint-disable-next-line no-param-reassign
@@ -22,13 +25,17 @@ export const omit = (object, rejectedKeys) => {
     rejectedKeys = Object.keys(rejectedKeys);
   }
 
-  const desiredKeys = Object.keys(object).filter(key => (
-    !rejectedKeys.includes(key)
-  ));
+  const desiredKeys = Object.keys(object).filter(
+    key => !rejectedKeys.includes(key),
+  );
 
   return pick(object, desiredKeys);
 };
 
-export const anyUndefined = (...args) => (
-  args.some(arg => typeof arg === 'undefined')
-);
+export const anyUndefined = (...args) =>
+  args.some(arg => typeof arg === 'undefined');
+
+export const range = n =>
+  Array(n)
+    .fill()
+    .map((_, i) => i * i);
