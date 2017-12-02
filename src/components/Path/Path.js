@@ -13,7 +13,7 @@ import { anyUndefined } from '../../utils';
 import type { strokeAttributes } from '../../types';
 
 type Props = {
-  d?: string,
+  d?: string | Array<string>,
   ...strokeAttributes,
 };
 
@@ -49,17 +49,24 @@ class Path extends Component<Props> {
   render() {
     const { ctx } = this.context;
     const {
-      d,
       stroke,
       strokeDasharray,
       strokeDashoffset,
       strokeLinecap,
       strokeOpacity,
       strokeWidth,
+      fill,
     } = this.props;
+    let { d } = this.props;
 
     if (typeof d === 'undefined') {
       return null;
+    }
+
+    // For convenience, an array can be passed for `d`.
+    // If so, just join it with spaces so that our path parser understands it.
+    if (Array.isArray(d)) {
+      d = d.join(' ');
     }
 
     const pathInstructions: Array<Array<any>> = parsePath(d);
@@ -68,8 +75,13 @@ class Path extends Component<Props> {
 
     pathInstructions.forEach(this.handleInstruction);
 
-    if (stroke) {
+    if (stroke && stroke !== 'none') {
       applyStroke(ctx, this.props);
+    }
+
+    if (fill && fill !== 'none') {
+      ctx.fillStyle = fill;
+      ctx.fill();
     }
 
     ctx.closePath();
