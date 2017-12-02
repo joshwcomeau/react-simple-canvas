@@ -34,7 +34,7 @@ class RandomPathAnimator extends Component {
   generatePoints = () => {
     return (
       'M 0,0 ' +
-      range(50)
+      range(600)
         .map(() => {
           const x = random(0, 800);
           const y = random(0, 600);
